@@ -32,9 +32,9 @@ unpushed () {
 need_push () {
   if [[ $(unpushed) == "" ]]
   then
-    echo " "
+    echo ""
   else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+    echo "with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
   fi
 }
 
@@ -48,7 +48,7 @@ node_version() {
 node_prompt() {
   if ! [[ -z "$(node_version)" ]]
   then
-    echo "%{$fg[yellow]%}node-$(node_version)%{$reset_color%}"
+    echo "%{$fg_bold[yellow]%}node-$(node_version)%{$reset_color%}"
   else
     echo ""
   fi
@@ -59,7 +59,7 @@ directory_name() {
   # echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(node_prompt) $(directory_name) $(git_branch)$(need_push)\n› '
+export PROMPT=$'\n$(node_prompt) $(directory_name) $(git_branch) $(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
