@@ -10,21 +10,12 @@ else
 fi
 
 git_branch() {
-  echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
-}
-
-git_dirty() {
   st=$($git status 2>/dev/null | tail -n 1)
-  if [[ $st == "" ]]
+  if [[ "$st" =~ ^nothing ]]
   then
-    echo ""
+    echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
   else
-    if [[ "$st" =~ ^nothing ]]
-    then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
-    else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
-    fi
+    echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
   fi
 }
 
@@ -47,32 +38,28 @@ need_push () {
   fi
 }
 
-ruby_version() {
-  if (( $+commands[rbenv] ))
+node_version() {
+  if (( $+commands[node] ))
   then
-    echo "$(rbenv version | awk '{print $1}')"
-  fi
-
-  if (( $+commands[rvm-prompt] ))
-  then
-    echo "$(rvm-prompt | awk '{print $1}')"
+    echo "$(node -v | awk '{print $1}')"
   fi
 }
 
-rb_prompt() {
-  if ! [[ -z "$(ruby_version)" ]]
+node_prompt() {
+  if ! [[ -z "$(node_version)" ]]
   then
-    echo "%{$fg_bold[yellow]%}$(ruby_version)%{$reset_color%} "
+    echo "%{$fg[yellow]%}node-$(node_version)%{$reset_color%}"
   else
     echo ""
   fi
 }
 
 directory_name() {
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+  echo "in $fg[cyan]${PWD/$HOME/~}$reset_color"
+  # echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n$(node_prompt) $(directory_name) $(git_branch)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
