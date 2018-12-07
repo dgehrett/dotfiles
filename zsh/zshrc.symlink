@@ -47,6 +47,10 @@ export PATH="$PATH:/usr/bin"
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 
+# mysql stuffs
+export MYSQL_BIN=/usr/local/mysql/bin
+export PATH=$MYSQL_BIN:$PATH
+
 export NVM_DIR="/Users/dgehrett/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -55,3 +59,10 @@ export NVM_DIR="/Users/dgehrett/.nvm"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/dgehrett/.sdkman"
 [[ -s "/Users/dgehrett/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/dgehrett/.sdkman/bin/sdkman-init.sh"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
