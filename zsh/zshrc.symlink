@@ -27,6 +27,14 @@ do
   source $file
 done
 
+# make homebrew's completions available in zsh
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
@@ -48,21 +56,59 @@ export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 # mysql stuffs
-export MYSQL_BIN=/usr/local/mysql/bin
-export PATH=$MYSQL_BIN:$PATH
+#export MYSQL_BIN=/usr/local/mysql/bin
+#export PATH=$MYSQL_BIN:$PATH
 
-export NVM_DIR="/Users/dgehrett/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-[[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
+eval "$(nodenv init -)"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /Users/u047dxg/Code/digital-nodejs-services/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/u047dxg/Code/digital-nodejs-services/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+[[ -f /Users/u047dxg/Code/digital-nodejs-services/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/u047dxg/Code/digital-nodejs-services/node_modules/tabtab/.completions/sls.zsh
+
+
+#export LDFLAGS=-L/usr/local/opt/openssl/lib
+#export CPPFLAGS=-I/usr/local/opt/openssl/include
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+
+
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/u047dxg/Code/digital-nodejs-services/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/u047dxg/Code/digital-nodejs-services/node_modules/tabtab/.completions/slss.zsh
+
+# kubectl stuff
+#kube_get_pods=kubectl get pods
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/dg/.sdkman"
-[[ -s "/Users/dg/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/dg/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="/Users/u047dxg/.sdkman"
+[[ -s "/Users/u047dxg/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/u047dxg/.sdkman/bin/sdkman-init.sh"
+
+# ruby stuff
+#export GEM_HOME=$HOME/.gem
+#export PATH=$GEM_HOME/bin:$PATH
+
+source <(kubectl completion zsh)
+
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# android stuff
+#
+PATH=$PATH:~/Library/Android/sdk/platform-tools
+
+
+# gradle
+PATH=$PATH:/opt/gradle/gradle-4.10.3/bin
+
+# thefuck
+eval $(thefuck --alias rats)
+export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+
+# minikube
+#eval $(minikube docker-env)
+
+#export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+

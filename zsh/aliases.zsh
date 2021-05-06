@@ -26,3 +26,17 @@ alias rcs='heroku run rails c -a movingcompanyreviews-stage'
 alias rcp='heroku run rails c -a movingcompanyreviews'
 alias rci='heroku run rails c -a mcr-int'
 
+#kubectl stuff
+alias kubeGetPods='kubectl get pods'
+alias kubeGetPodsSp='kubectl get pods | grep "services-proxy"'
+
+alias kubeCurrentContext='kubectl config current-context'
+alias kubeUseContextStage='kubectl config use-context cwt-stage'
+alias kubeUseContextInt='kubectl config use-context cwt-int-developer'
+#alias kubeSetContextStage='kubectl config set-context cwt-stage'
+alias kubeUseContextProd='kubectl config use-context cwt-prod'
+#alias kubeSetContextProd='kubectl config set-context cwt-prod!!!!'
+alias k='kubectl'
+
+# random things
+alias please='sudo'

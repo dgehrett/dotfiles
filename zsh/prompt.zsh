@@ -54,12 +54,28 @@ node_prompt() {
   fi
 }
 
+java_version() {
+  if (( $+commands[java] ))
+  then
+    echo "$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')"
+  fi
+}
+
+java_prompt() {
+  if ! [[ -z "$(java_version)" ]]
+  then
+    echo "%{$fg_bold[yellow]%}java-$(java_version)%{$reset_color%}"
+  else
+    echo ""
+  fi
+}
+
 directory_name() {
   echo "in $fg[cyan]${PWD/$HOME/~}$reset_color"
   # echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(node_prompt) $(directory_name) $(git_branch) $(need_push)\n› '
+export PROMPT=$'\n$(node_prompt) $(java_prompt) $(directory_name) $(git_branch) $(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }

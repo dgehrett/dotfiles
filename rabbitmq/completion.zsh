@@ -153,5 +153,5 @@ _rabbitmqadmin()
    COMPREPLY=($(compgen -W "${opts} ${fargs}" -- ${cur}))
    return 0
 }
-complete -F _rabbitmqadmin rabbitmqadmin
+#complete -F _rabbitmqadmin rabbitmqadmin
 
